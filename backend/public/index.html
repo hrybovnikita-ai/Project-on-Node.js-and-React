@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Backend Control Page</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="backend-page">
+      <header class="hero">
+        <div class="hero__content">
+          <span class="hero__eyebrow">Backend HTML + CSS</span>
+          <h1>Styled backend page for your Node.js server.</h1>
+          <p>
+            This page is served directly from the backend folder. It now has
+            its own HTML structure and CSS design.
+          </p>
+          <div class="hero__actions">
+            <a href="/api/status" class="button button--primary">Open API Status</a>
+            <a href="/api/users" class="button button--secondary">View SQL Users</a>
+          </div>
+        </div>
+
+        <div class="hero__card">
+          <span class="hero__card-label">Server Panel</span>
+          <strong>Node + SQLite</strong>
+          <p>Backend routes, HTML, and CSS are connected in one place.</p>
+        </div>
+      </header>
+
+      <main class="content">
+        <section class="panel">
+          <span class="section-label">Overview</span>
+          <h2>What this backend page includes</h2>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <span class="feature-card__icon">01</span>
+              <h3>HTML Layout</h3>
+              <p>Header, sections, cards, buttons, footer, and content blocks.</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-card__icon">02</span>
+              <h3>Custom CSS</h3>
+              <p>Backgrounds, hover states, spacing, shadows, and responsive layout.</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-card__icon">03</span>
+              <h3>Backend Routes</h3>
+              <p>The same backend also serves JSON API endpoints for your frontend.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="info-layout">
+          <article class="panel">
+            <span class="section-label">Server Info</span>
+            <h2>Ready for more pages</h2>
+            <p class="panel__text">
+              You can keep extending this backend page with more sections,
+              admin views, statistics, forms, and internal tools.
+            </p>
+            <ul class="list">
+              <li>Simple Node.js server</li>
+              <li>SQLite database support</li>
+              <li>Styled static HTML page</li>
+              <li>API routes for frontend requests</li>
+            </ul>
+          </article>
+
+          <aside class="panel panel--accent">
+            <span class="section-label">Quick Links</span>
+            <nav class="mini-nav">
+              <a href="/">Home</a>
+              <a href="/api/status">Status JSON</a>
+              <a href="/api/users">Users JSON</a>
+            </nav>
+            <div class="status-box">
+              <span>Status</span>
+              <strong>Backend online</strong>
+            </div>
+          </aside>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>Backend folder now contains HTML and CSS styling.</span>
+        <span>Served from `http://localhost:3001/`</span>
+      </footer>
+    </div>
+  </body>
+</html>
