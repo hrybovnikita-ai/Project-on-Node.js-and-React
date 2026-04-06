@@ -1,6 +1,6 @@
 import "./Header.css";
 
-export default function Header({ serverStatus }) {
+export default function Header({ serverStatus, theme, onToggleTheme }) {
   return (
     <header className="site-header">
       <div className="site-header__brand">
@@ -8,14 +8,20 @@ export default function Header({ serverStatus }) {
         <h1>Modern client and backend, connected in one flow.</h1>
       </div>
 
-      <div className="site-header__status">
-        <span
-          className={`site-header__dot ${serverStatus.loading ? "is-loading" : "is-ready"}`}
-          aria-hidden="true"
-        />
-        <div>
-          <p className="site-header__status-label">API status</p>
-          <strong>{serverStatus.message}</strong>
+      <div className="site-header__controls">
+        <button className="site-header__theme" type="button" onClick={onToggleTheme}>
+          {theme === "dark" ? "Light Theme" : "Dark Theme"}
+        </button>
+
+        <div className="site-header__status">
+          <span
+            className={`site-header__dot ${serverStatus.loading ? "is-loading" : "is-ready"}`}
+            aria-hidden="true"
+          />
+          <div>
+            <p className="site-header__status-label">API status</p>
+            <strong>{serverStatus.message}</strong>
+          </div>
         </div>
       </div>
     </header>

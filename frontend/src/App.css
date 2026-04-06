@@ -6,6 +6,10 @@
   overflow: hidden;
 }
 
+.app-shell--light {
+  color: #203028;
+}
+
 .app-shell::before,
 .app-shell::after {
   content: "";

@@ -51,8 +51,10 @@ const sectionContent = {
 export default function PortalPage({
   currentUser,
   onSignOut,
+  onToggleTheme,
   provider,
   serverStatus,
+  theme,
   usersState,
 }) {
   const [activeSection, setActiveSection] = useState("Overview");
@@ -83,7 +85,7 @@ export default function PortalPage({
   }
 
   return (
-    <main className="portal-page">
+    <main className={`portal-page portal-page--${theme}`}>
       {flashMessage ? (
         <div className="portal-toast" role="status" aria-live="polite">
           {flashMessage}
@@ -101,6 +103,10 @@ export default function PortalPage({
         </div>
 
         <div className="portal-header__actions">
+          <button className="portal-header__theme" type="button" onClick={onToggleTheme}>
+            {theme === "dark" ? "Light Theme" : "Dark Theme"}
+          </button>
+
           <div className="portal-header__account">
             <span className="portal-header__label">Signed in as</span>
             <strong>{userName}</strong>

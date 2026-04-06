@@ -17,6 +17,7 @@ export default function App() {
   const [showPassword, setShowPassword] = useState(false);
   const [currentPage, setCurrentPage] = useState("landing");
   const [selectedProvider, setSelectedProvider] = useState("");
+  const [theme, setTheme] = useState("dark");
   const [serverStatus, setServerStatus] = useState({
     loading: true,
     message: "Connecting to server...",
@@ -33,6 +34,10 @@ export default function App() {
     error: "",
     users: [],
   });
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
   useEffect(() => {
     let active = true;
@@ -150,21 +155,27 @@ export default function App() {
 
   if (currentPage === "portal") {
     return (
-      <div className="app-shell app-shell--portal">
+      <div className={`app-shell app-shell--portal app-shell--${theme}`}>
         <PortalPage
           currentUser={loginState.user}
           provider={selectedProvider}
           onSignOut={handleSignOut}
           serverStatus={serverStatus}
           usersState={usersState}
+          theme={theme}
+          onToggleTheme={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
         />
       </div>
     );
   }
 
   return (
-    <div className="app-shell">
-      <Header serverStatus={serverStatus} />
+    <div className={`app-shell app-shell--${theme}`}>
+      <Header
+        serverStatus={serverStatus}
+        theme={theme}
+        onToggleTheme={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
+      />
       <Main
         form={form}
         onChange={handleChange}

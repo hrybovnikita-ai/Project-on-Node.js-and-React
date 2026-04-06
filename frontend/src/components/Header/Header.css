@@ -8,6 +8,31 @@
   padding: 2rem 2rem 1rem;
 }
 
+.site-header__controls {
+  min-width: 16rem;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.site-header__theme {
+  justify-self: end;
+  border: 1px solid rgba(90, 95, 176, 0.18);
+  border-radius: 999px;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.72);
+  color: #2a2866;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.site-header__theme:hover {
+  transform: translateY(-1px);
+  background: rgba(123, 44, 255, 0.14);
+  box-shadow: 0 12px 28px rgba(93, 53, 184, 0.14);
+}
+
 .site-header__brand {
   max-width: 42rem;
 }
@@ -73,6 +98,14 @@
   .site-header {
     padding: 1.5rem 1.25rem 0.5rem;
     flex-direction: column;
+  }
+
+  .site-header__controls {
+    width: 100%;
+  }
+
+  .site-header__theme {
+    justify-self: start;
   }
 
   .site-header__status {
