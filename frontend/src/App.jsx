@@ -1,14 +1,182 @@
-// This is my new logic
+import { useEffect, useState } from "react";
+import Header from "./components/Header/Header";
+import Main from "./components/Main/Main";
+import Footer from "./components/Footer/Footer";
+import PortalPage from "./components/PortalPage/PortalPage";
+import { fetchServerStatus, fetchUsers, loginUser } from "./services/api";
+import "./App.css";
 
-import React from "react"; 
-import "./App.css"; 
+const initialForm = {
+  name: "",
+  email: "",
+  password: "",
+};
 
 export default function App() {
+  const [form, setForm] = useState(initialForm);
+  const [showPassword, setShowPassword] = useState(false);
+  const [currentPage, setCurrentPage] = useState("landing");
+  const [selectedProvider, setSelectedProvider] = useState("");
+  const [serverStatus, setServerStatus] = useState({
+    loading: true,
+    message: "Connecting to server...",
+    detail: "",
+  });
+  const [loginState, setLoginState] = useState({
+    loading: false,
+    error: "",
+    success: "",
+    user: null,
+  });
+  const [usersState, setUsersState] = useState({
+    loading: true,
+    error: "",
+    users: [],
+  });
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadData() {
+      const [statusResult, usersResult] = await Promise.allSettled([
+        fetchServerStatus(),
+        fetchUsers(),
+      ]);
+
+      if (!active) {
+        return;
+      }
+
+      if (statusResult.status === "fulfilled") {
+        const data = statusResult.value;
+
+        setServerStatus({
+          loading: false,
+          message: data.message,
+          detail: `Server time: ${new Date(data.timestamp).toLocaleString()} | Database: ${data.database.type} | Users: ${data.database.users}`,
+        });
+      } else {
+        setServerStatus({
+          loading: false,
+          message: "Backend connection failed",
+          detail: statusResult.reason.message,
+        });
+      }
+
+      if (usersResult.status === "fulfilled") {
+        setUsersState({
+          loading: false,
+          error: "",
+          users: usersResult.value.users,
+        });
+      } else {
+        setUsersState({
+          loading: false,
+          error: usersResult.reason.message,
+          users: [],
+        });
+      }
+    }
+
+    loadData();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+
+    setForm((current) => ({
+      ...current,
+      [name]: value,
+    }));
+  }
+
+  function handleSocialEnter(provider) {
+    setSelectedProvider(provider);
+    setCurrentPage("portal");
+  }
+
+  function handleSignOut() {
+    setCurrentPage("landing");
+    setSelectedProvider("");
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setLoginState({
+      loading: true,
+      error: "",
+      success: "",
+      user: null,
+    });
+
+    try {
+      const data = await loginUser(form);
+
+      setLoginState({
+        loading: false,
+        error: "",
+        success: data.message,
+        user: data.user,
+      });
+      setForm(initialForm);
+      setShowPassword(false);
+      const usersData = await fetchUsers();
+      const statusData = await fetchServerStatus();
+
+      setUsersState({
+        loading: false,
+        error: "",
+        users: usersData.users,
+      });
+
+      setServerStatus({
+        loading: false,
+        message: statusData.message,
+        detail: `Server time: ${new Date(statusData.timestamp).toLocaleString()} | Database: ${statusData.database.type} | Users: ${statusData.database.users}`,
+      });
+    } catch (error) {
+      setLoginState({
+        loading: false,
+        error: error.message,
+        success: "",
+        user: null,
+      });
+    }
+  }
+
+  if (currentPage === "portal") {
+    return (
+      <div className="app-shell app-shell--portal">
+        <PortalPage
+          currentUser={loginState.user}
+          provider={selectedProvider}
+          onSignOut={handleSignOut}
+          serverStatus={serverStatus}
+          usersState={usersState}
+        />
+      </div>
+    );
+  }
+
   return (
-    <div>
-      <header className="main-header">
-        <h1>Welcome my Friend!</h1>
-      </header>
+    <div className="app-shell">
+      <Header serverStatus={serverStatus} />
+      <Main
+        form={form}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+        loginState={loginState}
+        serverStatus={serverStatus}
+        usersState={usersState}
+        showPassword={showPassword}
+        onTogglePassword={() => setShowPassword((current) => !current)}
+        onSocialEnter={handleSocialEnter}
+      />
+      <Footer />
     </div>
-  )
+  );
 }

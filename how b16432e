@@ -1,0 +1,11 @@
+[33mcommit b164e2e6ce04b65fd7972a2cc69aa25f4e145b29[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;32mlogin-feature[m[33m)[m
+Author: Nikita Hrybov <hrybovnikita@gmail.com>
+Date:   Mon Apr 6 20:18:42 2026 +0300
+
+    Added login logic
+
+[33mcommit f61b27812d8ae59296949d365f47786ad38c5b4b[m
+Author: Nikita Hrybov <hrybovnikita@gmail.com>
+Date:   Mon Apr 6 20:12:27 2026 +0300
+
+    Initial project setup for frontend and backend
