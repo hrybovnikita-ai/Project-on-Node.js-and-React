@@ -4,8 +4,8 @@ export default function Header({ serverStatus, theme, onToggleTheme }) {
   return (
     <header className="site-header">
       <div className="site-header__brand">
-        <p className="site-header__eyebrow">Full Stack Starter</p>
-        <h1>Modern client and backend, connected in one flow.</h1>
+        <p className="site-header__eyebrow">Full Stack Control Center</p>
+        <h1>Modern frontend, backend, database, and motion in one flow.</h1>
       </div>
 
       <div className="site-header__controls">

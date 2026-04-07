@@ -1,9 +1,9 @@
 import "./Main.css";
 
 const features = [
-  "Reusable React component structure",
-  "Dedicated backend login route",
-  "Simple client-to-server integration",
+  "Animated dashboard sections with responsive cards",
+  "Dedicated backend routes for login, users, and projects",
+  "SQLite-powered data shown directly in the interface",
 ];
 
 export default function Main({
@@ -16,16 +16,19 @@ export default function Main({
   serverStatus,
   showPassword,
   usersState,
+  projectsState,
 }) {
+  const highlightedProjects = projectsState.projects.slice(0, 3);
+
   return (
     <main className="main-content">
       <section className="hero-panel">
         <div className="hero-panel__copy">
-          <p className="hero-panel__label">Frontend + Backend</p>
-          <h2>One landing page with a working login request to your Node server.</h2>
+          <p className="hero-panel__label">Green Motion Dashboard</p>
+          <h2>Dark lime frontend with animated cards and a real backend database.</h2>
           <p className="hero-panel__description">
-            The frontend now has separate Header, Main, and Footer components with
-            their own styles, and the backend responds to real API requests.
+            Your project now feels more like a product dashboard: darker visual style,
+            glowing green accents, smoother motion, and live SQLite data for users and projects.
           </p>
 
           <ul className="hero-panel__list">
@@ -39,31 +42,56 @@ export default function Main({
             <strong>{serverStatus.detail || "Waiting for server response..."}</strong>
           </div>
 
-          <div className="hero-panel__users-card">
-            <div className="hero-panel__users-header">
-              <span>SQL users</span>
-              <strong>{usersState.loading ? "Loading..." : `${usersState.users.length} records`}</strong>
+          <div className="hero-panel__data-grid">
+            <div className="hero-panel__users-card">
+              <div className="hero-panel__users-header">
+                <span>SQL users</span>
+                <strong>{usersState.loading ? "Loading..." : `${usersState.users.length} records`}</strong>
+              </div>
+
+              {usersState.error ? <p className="hero-panel__users-error">{usersState.error}</p> : null}
+
+              {!usersState.error ? (
+                <ul className="hero-panel__users-list">
+                  {usersState.users.map((user) => (
+                    <li key={user.id}>
+                      <strong>{user.name}</strong>
+                      <span>{user.email}</span>
+                      <span>{user.role}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
             </div>
 
-            {usersState.error ? <p className="hero-panel__users-error">{usersState.error}</p> : null}
+            <div className="hero-panel__projects-card">
+              <div className="hero-panel__users-header">
+                <span>Active projects</span>
+                <strong>{projectsState.loading ? "Loading..." : `${projectsState.projects.length} items`}</strong>
+              </div>
 
-            {!usersState.error ? (
-              <ul className="hero-panel__users-list">
-                {usersState.users.map((user) => (
-                  <li key={user.id}>
-                    <strong>{user.name}</strong>
-                    <span>{user.email}</span>
-                    <span>{user.role}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
+              {projectsState.error ? <p className="hero-panel__users-error">{projectsState.error}</p> : null}
+
+              {!projectsState.error ? (
+                <ul className="hero-panel__projects-list">
+                  {highlightedProjects.map((project) => (
+                    <li key={project.id}>
+                      <div>
+                        <strong>{project.name}</strong>
+                        <span>{project.owner}</span>
+                      </div>
+                      <b>{project.progress}%</b>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
           </div>
         </div>
 
         <div className="login-card">
           <p className="login-card__eyebrow">Welcome</p>
-          <h3>Log in with your own data</h3>
+          <h3>Log in and open the animated portal</h3>
 
           <form className="login-form" onSubmit={onSubmit}>
             <label className="login-form__field">

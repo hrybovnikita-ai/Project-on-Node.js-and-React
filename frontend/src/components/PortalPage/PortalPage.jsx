@@ -56,6 +56,7 @@ export default function PortalPage({
   serverStatus,
   theme,
   usersState,
+  projectsState,
 }) {
   const [activeSection, setActiveSection] = useState("Overview");
   const [flashMessage, setFlashMessage] = useState("");
@@ -98,7 +99,7 @@ export default function PortalPage({
           <h1>Welcome to your next-level workspace.</h1>
           <p>
             You teleported from the login card into a full page with navigation,
-            cards, image sections, content blocks, and account actions.
+            animated cards, database sections, image blocks, and account actions.
           </p>
         </div>
 
@@ -196,6 +197,10 @@ export default function PortalPage({
               <span className="portal-session__label">SQL users</span>
               <strong>{usersState.users.length}</strong>
             </div>
+            <div>
+              <span className="portal-session__label">Projects</span>
+              <strong>{projectsState.projects.length}</strong>
+            </div>
           </div>
         </aside>
       </section>
@@ -213,6 +218,33 @@ export default function PortalPage({
                   <p>{user.email}</p>
                 </div>
                 <span className="portal-user__role">{user.role}</span>
+              </div>
+            ))}
+          </div>
+        </article>
+
+        <article className="portal-panel">
+          <span className="portal-section__eyebrow">Projects</span>
+          <h3>Database project board</h3>
+          <div className="portal-projects">
+            {projectsState.projects.map((project) => (
+              <div key={project.id} className="portal-project">
+                <div className="portal-project__top">
+                  <div>
+                    <strong>{project.name}</strong>
+                    <p>{project.owner}</p>
+                  </div>
+                  <span className={`portal-project__status portal-project__status--${project.status.toLowerCase().replace(/\s+/g, "-")}`}>
+                    {project.status}
+                  </span>
+                </div>
+                <div className="portal-project__meta">
+                  <span>{project.priority} priority</span>
+                  <span>Due {project.dueDate}</span>
+                </div>
+                <div className="portal-project__progress">
+                  <div style={{ width: `${project.progress}%` }} />
+                </div>
               </div>
             ))}
           </div>

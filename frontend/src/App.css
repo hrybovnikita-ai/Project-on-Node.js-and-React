@@ -15,31 +15,33 @@
   content: "";
   position: absolute;
   border-radius: 999px;
-  filter: blur(10px);
+  filter: blur(18px);
   opacity: 0.55;
   pointer-events: none;
+  animation: shell-float 14s ease-in-out infinite alternate;
 }
 
 .app-shell::before {
-  width: 22rem;
-  height: 22rem;
-  background: radial-gradient(circle, rgba(247, 175, 84, 0.35), transparent 68%);
-  top: -8rem;
-  right: -6rem;
+  width: 24rem;
+  height: 24rem;
+  background: radial-gradient(circle, rgba(150, 255, 43, 0.28), transparent 68%);
+  top: -7rem;
+  right: -5rem;
 }
 
 .app-shell::after {
-  width: 18rem;
-  height: 18rem;
-  background: radial-gradient(circle, rgba(50, 142, 110, 0.24), transparent 70%);
-  bottom: 3rem;
+  width: 20rem;
+  height: 20rem;
+  background: radial-gradient(circle, rgba(22, 199, 112, 0.24), transparent 70%);
+  bottom: 4rem;
   left: -6rem;
+  animation-duration: 18s;
 }
 
 .app-shell--portal::before {
   width: 26rem;
   height: 26rem;
-  background: radial-gradient(circle, rgba(102, 76, 255, 0.32), transparent 68%);
+  background: radial-gradient(circle, rgba(152, 255, 31, 0.26), transparent 68%);
   top: -10rem;
   right: -4rem;
 }
@@ -47,7 +49,17 @@
 .app-shell--portal::after {
   width: 20rem;
   height: 20rem;
-  background: radial-gradient(circle, rgba(76, 168, 255, 0.22), transparent 72%);
+  background: radial-gradient(circle, rgba(49, 209, 133, 0.22), transparent 72%);
   bottom: 6rem;
   left: -5rem;
+}
+
+@keyframes shell-float {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(1.25rem, 1rem, 0) scale(1.08);
+  }
 }

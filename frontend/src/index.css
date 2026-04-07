@@ -1,11 +1,12 @@
 :root {
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: #f4f5f8;
+  color: #f0ffef;
   background:
-    radial-gradient(circle at top left, rgba(104, 78, 255, 0.24), transparent 26%),
-    linear-gradient(180deg, #161821 0%, #1c2230 100%);
+    radial-gradient(circle at top left, rgba(164, 255, 56, 0.14), transparent 24%),
+    radial-gradient(circle at bottom right, rgba(34, 196, 113, 0.16), transparent 26%),
+    linear-gradient(180deg, #06110d 0%, #0a1712 100%);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -13,10 +14,10 @@
 }
 
 :root[data-theme="light"] {
-  color: #203028;
+  color: #1d2f20;
   background:
-    radial-gradient(circle at top left, rgba(240, 197, 124, 0.35), transparent 28%),
-    linear-gradient(180deg, #f6efe5 0%, #eef4ed 100%);
+    radial-gradient(circle at top left, rgba(186, 255, 104, 0.28), transparent 28%),
+    linear-gradient(180deg, #edf6e9 0%, #dff0db 100%);
 }
 
 * {
@@ -35,14 +36,14 @@ body {
 body,
 button,
 input {
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
 }
 
 h1,
 h2,
 h3 {
-  font-family: Arial, sans-serif;
-  color: #eef2ff;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #efffea;
 }
 
 :root[data-theme="light"] h1,
@@ -56,13 +57,14 @@ h3 {
   margin: 1rem auto;
   min-height: calc(100vh - 2rem);
   border-radius: 2rem;
-  background: rgba(19, 23, 35, 0.76);
+  background: rgba(5, 19, 13, 0.72);
+  border: 1px solid rgba(170, 255, 91, 0.08);
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.22);
   backdrop-filter: blur(14px);
 }
 
 :root[data-theme="light"] #root {
-  background: rgba(247, 244, 237, 0.75);
+  background: rgba(243, 251, 239, 0.78);
   box-shadow: 0 30px 80px rgba(32, 48, 40, 0.08);
 }
 

@@ -6,6 +6,7 @@
   gap: 2rem;
   align-items: flex-start;
   padding: 2rem 2rem 1rem;
+  animation: header-rise 0.8s ease both;
 }
 
 .site-header__controls {
@@ -16,11 +17,11 @@
 
 .site-header__theme {
   justify-self: end;
-  border: 1px solid rgba(90, 95, 176, 0.18);
+  border: 1px solid rgba(156, 255, 60, 0.18);
   border-radius: 999px;
   padding: 0.75rem 1rem;
-  background: rgba(255, 255, 255, 0.72);
-  color: #2a2866;
+  background: rgba(255, 255, 255, 0.08);
+  color: #d6ff9c;
   font: inherit;
   font-weight: 700;
   cursor: pointer;
@@ -29,8 +30,8 @@
 
 .site-header__theme:hover {
   transform: translateY(-1px);
-  background: rgba(123, 44, 255, 0.14);
-  box-shadow: 0 12px 28px rgba(93, 53, 184, 0.14);
+  background: rgba(156, 255, 60, 0.12);
+  box-shadow: 0 12px 28px rgba(66, 198, 96, 0.16);
 }
 
 .site-header__brand {
@@ -42,8 +43,8 @@
   margin-bottom: 1rem;
   padding: 0.4rem 0.8rem;
   border-radius: 999px;
-  background: rgba(22, 82, 65, 0.1);
-  color: #165241;
+  background: rgba(156, 255, 60, 0.1);
+  color: #bfff6f;
   font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -64,11 +65,11 @@
   gap: 0.9rem;
   align-items: center;
   padding: 1rem 1.1rem;
-  border: 1px solid rgba(25, 38, 31, 0.08);
-  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(156, 255, 60, 0.1);
+  background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(12px);
   border-radius: 1.2rem;
-  box-shadow: 0 18px 45px rgba(31, 41, 35, 0.08);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.1);
 }
 
 .site-header__dot {
@@ -84,14 +85,26 @@
 }
 
 .site-header__dot.is-ready {
-  background: #2a8f63;
-  box-shadow: 0 0 0 0.4rem rgba(42, 143, 99, 0.15);
+  background: #84ff49;
+  box-shadow: 0 0 0 0.4rem rgba(132, 255, 73, 0.14);
 }
 
 .site-header__status-label {
   margin: 0 0 0.15rem;
   font-size: 0.85rem;
-  color: #5d655f;
+  color: #9db29f;
+}
+
+@keyframes header-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 900px) {

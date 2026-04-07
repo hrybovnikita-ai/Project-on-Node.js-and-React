@@ -3,7 +3,7 @@ import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import Footer from "./components/Footer/Footer";
 import PortalPage from "./components/PortalPage/PortalPage";
-import { fetchServerStatus, fetchUsers, loginUser } from "./services/api";
+import { fetchProjects, fetchServerStatus, fetchUsers, loginUser } from "./services/api";
 import "./App.css";
 
 const initialForm = {
@@ -34,6 +34,11 @@ export default function App() {
     error: "",
     users: [],
   });
+  const [projectsState, setProjectsState] = useState({
+    loading: true,
+    error: "",
+    projects: [],
+  });
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -43,9 +48,10 @@ export default function App() {
     let active = true;
 
     async function loadData() {
-      const [statusResult, usersResult] = await Promise.allSettled([
+      const [statusResult, usersResult, projectsResult] = await Promise.allSettled([
         fetchServerStatus(),
         fetchUsers(),
+        fetchProjects(),
       ]);
 
       if (!active) {
@@ -58,7 +64,7 @@ export default function App() {
         setServerStatus({
           loading: false,
           message: data.message,
-          detail: `Server time: ${new Date(data.timestamp).toLocaleString()} | Database: ${data.database.type} | Users: ${data.database.users}`,
+          detail: `Server time: ${new Date(data.timestamp).toLocaleString()} | Database: ${data.database.type} | Users: ${data.database.users} | Projects: ${data.database.projects}`,
         });
       } else {
         setServerStatus({
@@ -79,6 +85,20 @@ export default function App() {
           loading: false,
           error: usersResult.reason.message,
           users: [],
+        });
+      }
+
+      if (projectsResult.status === "fulfilled") {
+        setProjectsState({
+          loading: false,
+          error: "",
+          projects: projectsResult.value.projects,
+        });
+      } else {
+        setProjectsState({
+          loading: false,
+          error: projectsResult.reason.message,
+          projects: [],
         });
       }
     }
@@ -130,6 +150,7 @@ export default function App() {
       setForm(initialForm);
       setShowPassword(false);
       const usersData = await fetchUsers();
+      const projectsData = await fetchProjects();
       const statusData = await fetchServerStatus();
 
       setUsersState({
@@ -138,10 +159,16 @@ export default function App() {
         users: usersData.users,
       });
 
+      setProjectsState({
+        loading: false,
+        error: "",
+        projects: projectsData.projects,
+      });
+
       setServerStatus({
         loading: false,
         message: statusData.message,
-        detail: `Server time: ${new Date(statusData.timestamp).toLocaleString()} | Database: ${statusData.database.type} | Users: ${statusData.database.users}`,
+        detail: `Server time: ${new Date(statusData.timestamp).toLocaleString()} | Database: ${statusData.database.type} | Users: ${statusData.database.users} | Projects: ${statusData.database.projects}`,
       });
     } catch (error) {
       setLoginState({
@@ -162,6 +189,7 @@ export default function App() {
           onSignOut={handleSignOut}
           serverStatus={serverStatus}
           usersState={usersState}
+          projectsState={projectsState}
           theme={theme}
           onToggleTheme={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
         />
@@ -183,6 +211,7 @@ export default function App() {
         loginState={loginState}
         serverStatus={serverStatus}
         usersState={usersState}
+        projectsState={projectsState}
         showPassword={showPassword}
         onTogglePassword={() => setShowPassword((current) => !current)}
         onSocialEnter={handleSocialEnter}
