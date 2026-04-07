@@ -26,6 +26,10 @@ export function fetchUsers() {
   return request("/users");
 }
 
+export function fetchProjects() {
+  return request("/projects");
+}
+
 export function loginUser(credentials) {
   return request("/login", {
     method: "POST",

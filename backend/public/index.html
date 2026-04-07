@@ -14,18 +14,19 @@
           <h1>Styled backend page for your Node.js server.</h1>
           <p>
             This page is served directly from the backend folder. It now has
-            its own HTML structure and CSS design.
+            its own HTML structure, dark lime design, and animated cards.
           </p>
           <div class="hero__actions">
             <a href="/api/status" class="button button--primary">Open API Status</a>
             <a href="/api/users" class="button button--secondary">View SQL Users</a>
+            <a href="/api/projects" class="button button--secondary">View Projects</a>
           </div>
         </div>
 
         <div class="hero__card">
           <span class="hero__card-label">Server Panel</span>
-          <strong>Node + SQLite</strong>
-          <p>Backend routes, HTML, and CSS are connected in one place.</p>
+          <strong>Node + SQLite + Projects</strong>
+          <p>Backend routes, HTML, CSS, and dashboard data are connected in one place.</p>
         </div>
       </header>
 
@@ -47,7 +48,7 @@
             <article class="feature-card">
               <span class="feature-card__icon">03</span>
               <h3>Backend Routes</h3>
-              <p>The same backend also serves JSON API endpoints for your frontend.</p>
+              <p>The same backend now serves users, status, and project dashboard JSON.</p>
             </article>
           </div>
         </section>
@@ -63,6 +64,7 @@
             <ul class="list">
               <li>Simple Node.js server</li>
               <li>SQLite database support</li>
+              <li>Projects table with seeded data</li>
               <li>Styled static HTML page</li>
               <li>API routes for frontend requests</li>
             </ul>
@@ -74,10 +76,11 @@
               <a href="/">Home</a>
               <a href="/api/status">Status JSON</a>
               <a href="/api/users">Users JSON</a>
+              <a href="/api/projects">Projects JSON</a>
             </nav>
             <div class="status-box">
               <span>Status</span>
-              <strong>Backend online</strong>
+              <strong>Backend online with live project feed</strong>
             </div>
           </aside>
         </section>

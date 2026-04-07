@@ -15,25 +15,42 @@ function getSchemaSql() {
 }
 
 function seedDatabase() {
-  const row = database.prepare("SELECT COUNT(*) AS count FROM users").get();
+  const userRow = database.prepare("SELECT COUNT(*) AS count FROM users").get();
+  const projectRow = database.prepare("SELECT COUNT(*) AS count FROM projects").get();
 
-  if (row.count > 0) {
-    return;
+  if (userRow.count === 0) {
+    const insertUser = database.prepare(`
+      INSERT INTO users (name, email, password, role)
+      VALUES (?, ?, ?, ?)
+    `);
+
+    const seedUsers = [
+      ["Demo User", "demo@example.com", "password123", "Administrator"],
+      ["Project Member", "member@example.com", "secret456", "Editor"],
+      ["SQL Viewer", "viewer@example.com", "viewer789", "Viewer"],
+    ];
+
+    for (const user of seedUsers) {
+      insertUser.run(...user);
+    }
   }
 
-  const insertUser = database.prepare(`
-    INSERT INTO users (name, email, password, role)
-    VALUES (?, ?, ?, ?)
-  `);
+  if (projectRow.count === 0) {
+    const insertProject = database.prepare(`
+      INSERT INTO projects (name, status, progress, owner, priority, due_date)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `);
 
-  const seedUsers = [
-    ["Demo User", "demo@example.com", "password123", "Administrator"],
-    ["Project Member", "member@example.com", "secret456", "Editor"],
-    ["SQL Viewer", "viewer@example.com", "viewer789", "Viewer"],
-  ];
+    const seedProjects = [
+      ["Neon Garden UI", "In Progress", 82, "Demo User", "High", "2026-04-14"],
+      ["Analytics Sync API", "Review", 64, "Project Member", "Medium", "2026-04-18"],
+      ["Portal Motion Pass", "Planning", 29, "Demo User", "Medium", "2026-04-22"],
+      ["Customer Access Flow", "Done", 100, "SQL Viewer", "High", "2026-04-05"],
+    ];
 
-  for (const user of seedUsers) {
-    insertUser.run(...user);
+    for (const project of seedProjects) {
+      insertProject.run(...project);
+    }
   }
 }
 

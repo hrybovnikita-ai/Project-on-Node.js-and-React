@@ -4,6 +4,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { getDatabaseInfo, initDatabase } from "./database.js";
 import { authenticateUser, validateLoginPayload } from "./login.js";
+import { countProjects, listProjects } from "./repositories/projectRepository.js";
 import { countUsers, listUsers } from "./repositories/userRepository.js";
 
 const PORT = process.env.PORT || 3001;
@@ -98,6 +99,7 @@ const server = http.createServer(async (request, response) => {
       database: {
         type: databaseInfo.client,
         users: countUsers(),
+        projects: countProjects(),
       },
     });
     return;
@@ -106,6 +108,13 @@ const server = http.createServer(async (request, response) => {
   if (method === "GET" && url === "/api/users") {
     sendJson(response, 200, {
       users: listUsers(),
+    });
+    return;
+  }
+
+  if (method === "GET" && url === "/api/projects") {
+    sendJson(response, 200, {
+      projects: listProjects(),
     });
     return;
   }
